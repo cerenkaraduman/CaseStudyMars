@@ -1,8 +1,12 @@
-﻿namespace CaseStudyMars
+﻿using CaseStudyMars.Dto;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace CaseStudyMars
 {
     public class Validator
     {
-        public bool UpperRightCoordinatesValidate(string[] coordinates)
+        public bool GenerateUpperRightCoordinatesValidate(string[] coordinates)
         {
             bool validateResult = true;
             if (coordinates.Length != Constants.UpperRightPositionLength)
@@ -17,7 +21,7 @@
 
             return validateResult;
         }
-        public bool StartedPositionValidate(string[] positions)
+        public bool GenerateInitialPositionValidate(string[] positions)
         {
             bool validateResult = true;
             int length = positions.Length;
@@ -43,7 +47,7 @@
 
             return validateResult;
         }
-        public bool InstructionValidate(char[] directions)
+        public bool GenerateInstructionValidate(char[] directions)
         {
             bool validateResult = true;
 
@@ -59,6 +63,24 @@
 
             return validateResult;
         }
+        public bool MoveValidate(int positionX, int positionY, List<RoverDto> rovers, RectangleDto rectangle)
+        {
+            bool validateResult = IsThereAnyRoversValidate(positionX, positionY, rovers);
 
+            if (validateResult)
+            {
+                validateResult = IsCoordinateInThePlateauValidate(positionX, positionY, rectangle);
+            };
+
+            return validateResult;
+        }
+        public bool IsThereAnyRoversValidate(int positionX, int positionY, List<RoverDto> rovers)
+        {
+            return !rovers.Any(i => i.Position.X == positionX && i.Position.Y == positionY);
+        }
+        public bool IsCoordinateInThePlateauValidate(int positionX, int positionY, RectangleDto rectangle)
+        {
+            return !(positionX > rectangle.X || positionY > rectangle.Y || positionX < 0 || positionY <0);
+        }
     }
 }

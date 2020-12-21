@@ -1,12 +1,13 @@
 ﻿using CaseStudyMars.Dto;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CaseStudyMars
 {
     public class MarsRoverService
     {
-        Validator _validator = new Validator();
+        readonly Validator _validator;
         public MarsRoverService(Validator validator)
         {
             _validator = validator;
@@ -59,7 +60,7 @@ namespace CaseStudyMars
 
             return directions;
         }
-        public List<RoverDto> CalculatePosition(RectangleDto rectangle, List<RoverDto> rovers)
+        public List<PositionDto> CalculatePosition(RectangleDto rectangle, List<RoverDto> rovers)
         {
             foreach (var rover in rovers)
             {
@@ -78,31 +79,27 @@ namespace CaseStudyMars
                 }
             }
 
-            return rovers;
+            return rovers.Select(i => i.Position).ToList();
         }
         private PositionDto Move(PositionDto position, List<RoverDto> rovers, RectangleDto rectangle)
         {
             int positionX = position.X;
             int positionY = position.Y;
 
-            if (position.Facing == "N")
+            switch (position.Facing)
             {
-                positionY++;
-            }
-
-            else if (position.Facing == "S")
-            {
-                positionY--;
-            }
-
-            else if (position.Facing == "E")
-            {
-                positionX++;
-            }
-
-            else
-            {
-                positionX--;
+                case ("N"):
+                    positionY++;
+                    break;
+                case ("S"):
+                    positionY--;
+                    break;
+                case ("E"):
+                    positionX++;
+                    break;
+                default:
+                    positionX--;
+                    break;
             }
 
             if (_validator.MoveValidate(positionX, positionY, rovers, rectangle))
@@ -121,46 +118,64 @@ namespace CaseStudyMars
         private PositionDto Rotate(PositionDto position, char direction)
         {
             string currentFacing = position.Facing;
+            string nextFacting;
 
             if (direction == 'L')
             {
-                switch (currentFacing)
-                {
-                    case ("N"):
-                        position.Facing = "W";
-                        break;
-                    case ("W"):
-                        position.Facing = "S";
-                        break;
-                    case ("S"):
-                        position.Facing = "E";
-                        break;
-                    default:
-                        position.Facing = "N";
-                        break;
-                }
+                nextFacting = SpinLeft(currentFacing);
             }
 
             else
             {
-                switch (currentFacing)
-                {
-                    case ("N"):
-                        position.Facing = "E";
-                        break;
-                    case ("W"):
-                        position.Facing = "N";
-                        break;
-                    case ("S"):
-                        position.Facing = "W";
-                        break;
-                    default:
-                        position.Facing = "S";
-                        break;
-                }
+                nextFacting = SpinRight(currentFacing);
             }
 
+            position.Facing = nextFacting;
+
             return position;
+        }
+        private string SpinLeft(string currentFacing)
+        {
+            string nextFacing;
+            switch (currentFacing)
+            {
+                case ("N"):
+                    nextFacing = "W";
+                    break;
+                case ("W"):
+                    nextFacing = "S";
+                    break;
+                case ("S"):
+                    nextFacing = "E";
+                    break;
+                default:
+                    nextFacing = "N";
+                    break;
+            }
+
+            return nextFacing;
+        }
+        private string SpinRight(string currentFacing)
+        {
+            string nextFacing;
+
+            switch (currentFacing)
+            {
+                case ("N"):
+                    nextFacing = "E";
+                    break;
+                case ("W"):
+                    nextFacing = "N";
+                    break;
+                case ("S"):
+                    nextFacing = "W";
+                    break;
+                default:
+                    nextFacing = "S";
+                    break;
+            }
+
+            return nextFacing;
         }
     }
 }

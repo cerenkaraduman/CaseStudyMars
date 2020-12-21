@@ -82,5 +82,22 @@ namespace CaseStudyMars
         {
             return !(positionX > rectangle.X || positionY > rectangle.Y || positionX < 0 || positionY <0);
         }
+        //public static int ConvertInt(this string variable)
+        //{
+        //    int output;
+        //    int.TryParse(variable, out output);
+
+        //    if (!variable.IsInt())
+        //    {
+        //        throw new ArgumentException("Invalid input. You must type int.");
+        //    }
+
+        //    if (!output.IsPossitiveVariable())
+        //    {
+        //        throw new ArgumentException("Invalid input. You must type possitive int.");
+        //    }
+
+        //    return output;
+        //}
     }
 }

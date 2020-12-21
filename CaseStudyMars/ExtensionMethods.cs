@@ -26,7 +26,7 @@ namespace CaseStudyMars
 
             return validateResult;
         }
-        public static string FormatInput(this string variable)
+        public static string FormatString(this string variable)
         {
             if (string.IsNullOrWhiteSpace(variable))
             {

@@ -85,7 +85,7 @@ namespace CaseStudyMarsTest
 
             rovers.Add(rover);
 
-            List<RoverDto> result = _marsRoverService.CalculatePosition(rectangle, rovers);
+            List<PositionDto> result = _marsRoverService.CalculatePosition(rectangle, rovers);
             Assert.IsNotNull(result);
         }
 

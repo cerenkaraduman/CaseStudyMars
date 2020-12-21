@@ -14,7 +14,7 @@ namespace CaseStudyMars
                 validateResult = false;
             }
 
-            if (!(coordinates[0].IsInt() || coordinates[1].IsInt()))
+            if (validateResult && !(coordinates[0].IsInt() || coordinates[1].IsInt()))
             {
                 validateResult = false;
             }

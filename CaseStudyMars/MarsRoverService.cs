@@ -24,8 +24,7 @@ namespace CaseStudyMars
 
             else
             {
-                Console.WriteLine("Invalid input. Wrong upper right coordinates.");
-                Environment.Exit(0);
+                throw new ArgumentException("Invalid input. Wrong upper right coordinates.");
             }
 
             return rectangle;
@@ -44,8 +43,7 @@ namespace CaseStudyMars
 
             else
             {
-                Console.WriteLine("Invalid input. Wrong beginnig position.");
-                Environment.Exit(0);
+                throw new ArgumentException("Invalid input. Wrong initial position.");
             }
 
             return po;
@@ -56,8 +54,7 @@ namespace CaseStudyMars
 
             if (!_validator.GenerateInstructionValidate(directions))
             {
-                Console.WriteLine("Invalid input. Wrong nagivated direction.");
-                Environment.Exit(0);
+                throw new ArgumentException("Invalid input. Wrong instructio.");
             }
 
             return directions;
@@ -116,8 +113,7 @@ namespace CaseStudyMars
 
             else
             {
-                Console.WriteLine("There is a rover in that position or that position isn't in the plateau.");
-                Environment.Exit(0);
+                throw new ArgumentException("There is a rover in that position or that position isn't in the plateau.");
             }
 
             return position;

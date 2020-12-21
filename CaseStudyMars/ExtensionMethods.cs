@@ -30,8 +30,7 @@ namespace CaseStudyMars
         {
             if (string.IsNullOrWhiteSpace(variable))
             {
-                Console.WriteLine("Invalid input. You can't type a null input.");
-                Environment.Exit(0);
+                throw new ArgumentNullException("Invalid input. You can't type a null input.");
             }
             return variable.Trim().ToUpper();
         }
@@ -42,14 +41,12 @@ namespace CaseStudyMars
 
             if (!variable.IsInt())
             {
-                Console.WriteLine("Invalid input. You must type int.");
-                Environment.Exit(0);
+                throw new ArgumentException("Invalid input. You must type int.");
             }
 
             if (!output.IsPossitiveVariable())
             {
-                Console.WriteLine("Invalid input. You must type possitive int.");
-                Environment.Exit(0);
+                throw new ArgumentException("Invalid input. You must type possitive int.");
             }
 
             return output;
